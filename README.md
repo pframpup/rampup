@@ -44,3 +44,14 @@ docs: update README file:
 |test:| (adding missing tests, refactoring tests; no production code change)|
 |chore: | (updating grunt tasks etc; no production code change)|
 
+
+## Infrastructure as Code 
+
+In this case it was neccesary to choose terraform, because it can interoperate in various Cloud technologies like AWS, Azure, Digital Ocean etcetera.
+
+Terraform is an open-source infrastructure as code software tool created by HashiCorp. It enables users to define and provision a data center infrastructure.
+
+### AWS EC2 Diagram
+
+![image](https://github.com/pframpup/rampup/blob/develop/Infrastructure-as-Code-IaC/aws-diagram1.png?raw=true)
+
