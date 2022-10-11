@@ -4,6 +4,12 @@ variable "itype" {
   default = "t2.micro"
 }
 
+variable "ami_id" {
+  type        = string
+  default     = "ami-018d291ca9ffc002f"
+  description = "amzn2-ami-kernel-5.10-hvm-2.0.20220805.0-x86_64-gp2"
+}
+
 variable "vpc" {
   type = string
   default = "vpc-0d2831659ef89870c"
@@ -14,19 +20,49 @@ variable "ami" {
   default = "ami-018d291ca9ffc002f"
 }
 
-variable "subnet_private" {
+variable "subnet_private-1" {
   type = string
   default = "subnet-038fa9d9a69d6561e" //ramp_up_training-private-1
 }
-variable "subnet_public" {
+variable "subnet_public-1" {
   type = string
   default = "subnet-055c41fce697f9cca" //ramp_up_training-public-1
+}
+
+variable "subnet_private-0" {
+  type = string
+  default = "subnet-0d74b59773148d704" //ramp_up_training-private-0
+}
+variable "subnet_public-0" {
+  type = string
+  default = "subnet-0088df5de3a4fe490" //ramp_up_training-public-0
 }
 
 variable "region" {
   type = string
   description = "region for aws resources"
   default = "us-west-1"
+}
+
+variable "fake_domain_authapi" {
+  type = string
+  default = "authapix.com"
+}
+variable "fake_domain_usersapi" {
+  type = string
+  default = "usersapix.com"
+}
+variable "fake_domain_todosapi" {
+  type = string
+  default = "todosapix.com"
+}
+variable "fake_domain_logmessageprocessor" {
+  type = string
+  default = "logmessageprocessorx.com"
+}
+variable "fake_domain_redisdatabase" {
+  type = string
+  default = "redisdatabasex.com"
 }
 
 variable "access_key" {
