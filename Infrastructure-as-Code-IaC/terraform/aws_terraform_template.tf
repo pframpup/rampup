@@ -27,8 +27,16 @@ resource "aws_launch_template" "template-machine-frontend" {
     }
   }
 
-  user_data = base64encode(templatefile("./scripts/frontend-script.sh", {
-      private-lb-dns = aws_lb.load-balancer-microservices-app-private.dns_name
+  /*user_data = base64encode(templatefile("./scripts/frontend-script.sh", {
+      private-lb-dns = aws_lb.load-balancer-microservices-app-private.dns_name,
+      hostname = "frontend-machine"
+  }))
+  */
+
+  user_data = base64encode(templatefile("./scripts/global-vars.sh", {
+    private-lb-dns = aws_lb.load-balancer-microservices-app-private.dns_name,
+    redis-ip = aws_instance.machine-redis.private_ip,
+    ansiblename = "playbook-frontend.yml"
   }))
 
   depends_on = [ aws_security_group.secgroup-redis ]
@@ -98,8 +106,16 @@ resource "aws_launch_template" "template-machine-auth-api" {
     }
   }
 
-  user_data = base64encode(templatefile("./scripts/auth-api-script.sh",{
-    private-lb-dns = aws_lb.load-balancer-microservices-app-private.dns_name
+  /*user_data = base64encode(templatefile("./scripts/auth-api-script.sh",{
+    private-lb-dns = aws_lb.load-balancer-microservices-app-private.dns_name,
+    hostname = "auth-api-machine"
+  }))
+  */
+  
+  user_data = base64encode(templatefile("./scripts/global-vars.sh", {
+    private-lb-dns = aws_lb.load-balancer-microservices-app-private.dns_name,
+    redis-ip = aws_instance.machine-redis.private_ip,
+    ansiblename = "playbook-auth-api.yml"
   }))
 
   depends_on = [ aws_security_group.secgroup-auth-api ]
@@ -133,8 +149,16 @@ resource "aws_launch_template" "template-machine-users-api" {
     }
   }
 
-  user_data = base64encode(templatefile("./scripts/users-api-script.sh",{
-    private-lb-dns = aws_lb.load-balancer-microservices-app-private.dns_name
+  /*user_data = base64encode(templatefile("./scripts/users-api-script.sh",{
+    private-lb-dns = aws_lb.load-balancer-microservices-app-private.dns_name,
+    hostname = "users-api-machine"
+  }))
+  */
+
+  user_data = base64encode(templatefile("./scripts/global-vars.sh", {
+    private-lb-dns = aws_lb.load-balancer-microservices-app-private.dns_name,
+    redis-ip = aws_instance.machine-redis.private_ip,
+    ansiblename = "playbook-users-api.yml"
   }))
 
   depends_on = [ aws_security_group.secgroup-users-api ]
@@ -168,9 +192,17 @@ resource "aws_launch_template" "template-machine-log-message-processor" {
     }
   }
 
-  user_data = base64encode(templatefile("./scripts/log-message-processor-script.sh",{
+  /*user_data = base64encode(templatefile("./scripts/log-message-processor-script.sh",{
     private-lb-dns = aws_lb.load-balancer-microservices-app-private.dns_name,
-    redis-ip = aws_instance.machine-redis.private_ip
+    redis-ip = aws_instance.machine-redis.private_ip,
+    hostname = "log-message-processor-machine"
+  }))
+  */
+
+  user_data = base64encode(templatefile("./scripts/global-vars.sh", {
+    private-lb-dns = aws_lb.load-balancer-microservices-app-private.dns_name,
+    redis-ip = aws_instance.machine-redis.private_ip,
+    ansiblename = "playbook-logmessage.yml"
   }))
 
   depends_on = [ aws_security_group.secgroup-log-message-processor ]
@@ -204,9 +236,17 @@ resource "aws_launch_template" "template-machine-todos-api" {
     }
   }
 
-  user_data = base64encode(templatefile("./scripts/todos-api-script.sh",{
+  /*user_data = base64encode(templatefile("./scripts/todos-api-script.sh",{
     private-lb-dns = aws_lb.load-balancer-microservices-app-private.dns_name,
-    redis-ip = aws_instance.machine-redis.private_ip
+    redis-ip = aws_instance.machine-redis.private_ip,
+    hostname = "todos-api-machine"
+  }))
+  */
+
+  user_data = base64encode(templatefile("./scripts/global-vars.sh", {
+    private-lb-dns = aws_lb.load-balancer-microservices-app-private.dns_name,
+    redis-ip = aws_instance.machine-redis.private_ip,
+    ansiblename = "playbook-todos-api.yml"
   }))
 
   depends_on = [ aws_security_group.secgroup-todos-api ]

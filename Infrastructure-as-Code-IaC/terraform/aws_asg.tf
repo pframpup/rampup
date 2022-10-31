@@ -45,7 +45,8 @@ resource "aws_autoscaling_group" "machine-auth-api" {
   min_size = 1
   desired_capacity = 1
 
-  vpc_zone_identifier = [var.subnet_public-1, var.subnet_public-0]
+  //vpc_zone_identifier = [var.subnet_public-1, var.subnet_public-0]
+   vpc_zone_identifier = [var.subnet_private-1, var.subnet_private-0]
   target_group_arns = [aws_lb_target_group.tg-auth-api.arn]
 
   launch_template {
@@ -65,7 +66,8 @@ resource "aws_autoscaling_group" "machine-users-api" {
   min_size = 1
   desired_capacity = 1
 
-  vpc_zone_identifier = [var.subnet_public-1, var.subnet_public-0]
+  //vpc_zone_identifier = [var.subnet_public-1, var.subnet_public-0]
+   vpc_zone_identifier = [var.subnet_private-1, var.subnet_private-0]
   target_group_arns = [aws_lb_target_group.tg-users-api.arn]
 
   launch_template {
@@ -85,7 +87,8 @@ resource "aws_autoscaling_group" "machine-log-message-processor" {
   min_size = 1
   desired_capacity = 1
 
-  vpc_zone_identifier = [var.subnet_public-1, var.subnet_public-0]
+  //vpc_zone_identifier = [var.subnet_public-1, var.subnet_public-0]
+   vpc_zone_identifier = [var.subnet_private-1, var.subnet_private-0]
   //target_group_arns = [aws_lb_target_group.tg-log-message-processor.arn]
 
   launch_template {
@@ -106,7 +109,8 @@ resource "aws_autoscaling_group" "machine-todos-api" {
   min_size = 1
   desired_capacity = 1
 
-  vpc_zone_identifier = [var.subnet_public-1, var.subnet_public-0]
+  //vpc_zone_identifier = [var.subnet_public-1, var.subnet_public-0]
+   vpc_zone_identifier = [var.subnet_private-1, var.subnet_private-0]
   target_group_arns = [aws_lb_target_group.tg-todos-api.arn]
 
   launch_template {
