@@ -1,0 +1,29 @@
+---
+- name: frontend machine
+  hosts: localhost
+  vars:
+    homepath: "/home/ec2-user"
+    port: "{{ PORT }}"
+    auth_api: "{{ AUTH_API_ADDRESS }}"
+    todos_api: "{{ TODOS_API_ADDRESS }}"
+  become: true
+  tasks:
+  - name: Pull frontend Docker image
+    community.docker.docker_image:
+      name: dprampup/frontend:v1
+      source: pull
+
+  - name: Run frontend container
+    community.docker.docker_container:
+      name: "frontendApp"
+      image: dprampup/frontend:v1
+      restart_policy: unless-stopped
+      state: started
+      published_ports:
+        - "8080:8080"
+      env:
+        PORT: "{{ port }}"
+        AUTH_API_ADDRESS: "{{ auth_api }}"
+        TODOS_API_ADDRESS: "{{ todos_api }}"
+  - debug:
+      msg: "PORT = {{ port }} -- AUTH_API_ADDRESS = {{ auth_api }} -- TODOS_API_ADDRESS = {{ todos_api }}"

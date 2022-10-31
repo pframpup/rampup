@@ -1,0 +1,20 @@
+---
+- name: redis machine
+  hosts: localhost
+  vars:
+    homepath: "/home/ec2-user"
+  become: true
+  tasks:
+  - name: Pull redis Docker image
+    community.docker.docker_image:
+      name: redis:7.0
+      source: pull
+
+  - name: Run redis container
+    community.docker.docker_container:
+      name: "redisApp"
+      image: redis:7.0
+      restart_policy: unless-stopped
+      state: started
+      published_ports:
+        - "6379:6379"

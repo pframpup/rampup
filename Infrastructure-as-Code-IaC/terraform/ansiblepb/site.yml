@@ -1,0 +1,2 @@
+- import_playbook: playbook-auth-api.yml
+- import_playbook: playbook-frontend.yml

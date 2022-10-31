@@ -1,0 +1,29 @@
+---
+- name: auth machine
+  hosts: localhost
+  vars:
+    homepath: "/home/ec2-user"
+    jwt_secret:  "{{ JWT_SECRET }}"
+    users_api: "{{ USERS_API_ADDRESS }}"
+    auth_api_port: "{{ AUTH_API_PORT }}"
+  become: true
+  tasks:
+  - name: Pull auth Docker image
+    community.docker.docker_image:
+      name: dprampup/auth:v1
+      source: pull
+
+  - name: Run auth container
+    community.docker.docker_container:
+      name: "authApp"
+      image: dprampup/auth:v1
+      restart_policy: unless-stopped
+      state: started
+      published_ports:
+        - "8000:8000"
+      env:
+        JWT_SECRET: "{{ jwt_secret }}"
+        AUTH_API_PORT: "{{ auth_api_port }}" 
+        USERS_API_ADDRESS: "{{ users_api }}"
+  - debug:
+      msg: "JWT_SECRET = {{ jwt_secret }} -- AUTH_API_PORT = {{ auth_api_port }} -- USERS_API_ADDRESS = {{ users_api }}"

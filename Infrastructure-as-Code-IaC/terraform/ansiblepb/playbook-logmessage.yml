@@ -1,0 +1,27 @@
+---
+- name: log-message machine
+  hosts: localhost
+  vars:
+    homepath: "/home/ec2-user"
+    redis_host: "{{ REDIS_HOST }}"
+    redis_port: "{{ REDIS_PORT }}"
+    redis_channel: "{{ REDIS_CHANNEL }}"
+  become: true
+  tasks:
+  - name: Pull log-message Docker image
+    community.docker.docker_image:
+      name: dprampup/log-message-processor:v1
+      source: pull
+
+  - name: Run log-message container
+    community.docker.docker_container:
+      name: "logMessageApp"
+      image: dprampup/log-message-processor:v1
+      restart_policy: unless-stopped
+      state: started
+      env:
+        REDIS_HOST: "{{ redis_host }}"
+        REDIS_PORT: "{{ redis_port }}"
+        REDIS_CHANNEL: "{{ redis_channel }}"
+  - debug:
+      msg: "REDIS_HOST = {{ redis_host }} -- REDIS_PORT = {{ redis_port }} -- REDIS_CHANNEL = {{ redis_channel }}"

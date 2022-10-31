@@ -1,0 +1,28 @@
+---
+- name: users machine
+  hosts: localhost
+  vars:
+    homepath: "/home/ec2-user"
+    jwt_secret:  "{{ JWT_SECRET }}"
+    server_port: "{{ SERVER_PORT }}"
+  become: true
+  tasks:
+  - name: Pull users Docker image
+    community.docker.docker_image:
+      name: dprampup/users:v1
+      source: pull
+
+  - name: Run users container
+    community.docker.docker_container:
+      name: "usersApp"
+      image: dprampup/users:v1
+      restart_policy: unless-stopped
+      state: started
+      published_ports:
+        - "8083:8083"
+      env:
+        JWT_SECRET: "{{ jwt_secret }}"
+        SERVER_PORT: "{{ server_port }}"
+  - debug:
+      msg: "JWT_SECRET = {{ jwt_secret }} -- SERVER_PORT = {{ server_port }}"
+

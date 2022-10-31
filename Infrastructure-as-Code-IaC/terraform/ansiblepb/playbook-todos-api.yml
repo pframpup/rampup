@@ -1,0 +1,27 @@
+---
+- name: todos machine
+  hosts: localhost
+  vars:
+    homepath: "/home/ec2-user"
+    jwt_secret:  "{{ JWT_SECRET }}"
+    todo_api_port: "{{ TODO_API_PORT }}"
+  become: true
+  tasks:
+  - name: Pull todos Docker image
+    community.docker.docker_image:
+      name: dprampup/todos:v1
+      source: pull
+
+  - name: Run todos container
+    community.docker.docker_container:
+      name: "todosApp"
+      image: dprampup/todos:v1
+      restart_policy: unless-stopped
+      state: started
+      published_ports:
+        - "8082:8082"
+      env:
+        JWT_SECRET: "{{ jwt_secret }}"
+        TODO_API_PORT: "{{ todo_api_port }}"
+  - debug:
+      msg: "JWT_SECRET = {{ jwt_secret }} -- TODO_API_PORT = {{ todo_api_port }}"
