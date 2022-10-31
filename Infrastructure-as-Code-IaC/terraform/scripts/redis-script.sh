@@ -1,5 +1,7 @@
  #!/bin/bash
 set -ex
+hostnamectl set-hostname ${hostname}
+hostnamectl
 yum -y update && yum -y upgrade
 yum -y group install "Development Tools"
 yum -y install nc

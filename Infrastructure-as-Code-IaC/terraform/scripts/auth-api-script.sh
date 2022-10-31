@@ -8,6 +8,8 @@ set -ex
 #systemctl restart sshd
 #sysctl -w net.ipv6.conf.all.disable_ipv6=1
 #sysctl -w net.ipv6.conf.default.disable_ipv6=1
+hostnamectl set-hostname ${hostname}
+hostnamectl
 
 yum -y update && sudo yum -y upgrade
 yum -y group install "Development Tools"
