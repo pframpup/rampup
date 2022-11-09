@@ -55,3 +55,23 @@ Terraform is an open-source infrastructure as code software tool created by Hash
 
 ![image](https://github.com/pframpup/rampup/blob/develop/Infrastructure-as-Code-IaC/aws-diagram1.png?raw=true)
 
+![image](https://github.com/pframpup/rampup/blob/develop/Infrastructure-as-Code-IaC/aws-diagram2.png?raw=true)
+
+### Configuration management tools
+
+Configuration management tools enable changes and deployments to be faster, repeatable, scalable, predictable, and able to maintain the desired state, which brings controlled assets into an expected state.
+
+Some advantages of using configuration management tools include:
+
+- Adherence to coding conventions that make it easier to navigate code
+- Idempotency, which means that the end state remains the same, no matter how many times the code is executed
+- Distribution design to improve managing large numbers of remote servers
+
+In this case it was used Ansible. Ansible is a radically simple IT automation platform that makes your applications and systems easier to deploy. Avoid writing scripts or custom code to deploy and update your applications—automate in a language that approaches plain English, using SSH, with no agents to install on remote systems.
+
+### CI / CD
+
+IT was used Jenkins because, Jenkins is an open source automation server that helps automate the parts of software development related to building, testing, and deploying, facilitating continuous integration and continuous delivery.
+
+![image](https://github.com/pframpup/rampup/blob/develop/Infrastructure-as-Code-IaC/CI-Jenkins.png?raw=true)
+
